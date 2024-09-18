@@ -117,6 +117,90 @@ public class SinglyLinkedList {
 
     }
 
+    public int findValue(ListNode head, int value) {
+
+        int count = 0;
+        ListNode current = head;
+
+        while (current != null) {
+            if(current.data == value) {
+                System.out.println(count);
+                return count;
+            }
+            count++;
+            current = current.next;
+        }
+        count=-1;
+        System.out.println(count);
+        return count;
+    }
+
+    //loop through the list and perform the following reversal steps
+    //Keep next in holding
+    //make the current point to the previous
+    //make the current guy become previous(push him to the past theirby shifting cursor)
+    //then make the next guy we were holding before become current and then let the flow continue
+    //when we get to the last guy set the head to the previous
+    public void reverseList(ListNode head) {
+
+        ListNode previous = null;
+        ListNode current = head;
+        ListNode next = null;
+
+        while (current != null) {
+            next = current.next;
+            current.next = previous;
+            previous = current;
+            current = next;
+        }
+
+        this.head = previous;
+    }
+
+    public void forLoopLinkedList(ListNode head) {
+
+        for(ListNode current = head; current != null; current = current.next) {
+            System.out.print(current.data + " ---->> ");
+        }
+        System.out.println(" ");
+    }
+
+    //using two pointers a fast and slow pointer
+    //fast transverses twice as fast as slow point
+    //by the time fast gets to the end the slow must be half way
+    public int sllMiddleFinder (ListNode head) {
+
+        ListNode slowPtr = head;
+        ListNode fastPtr = head;
+        int count = 0;
+
+        while(fastPtr != null && fastPtr.next != null) {
+            count++;
+            slowPtr = slowPtr.next;
+            fastPtr = fastPtr.next.next;
+        }
+        System.out.println("middle index is >> " + count);
+        return count;
+    }
+
+    public void inverseNthNode (ListNode head, int n) {
+        ListNode refPtr = head;
+        ListNode mainPtr = head;
+        int count = 0;
+
+        while (count < n) {
+            count++;
+            refPtr = refPtr.next;
+        }
+
+        while (refPtr != null){
+            refPtr = refPtr.next;
+            mainPtr = mainPtr.next;
+        }
+
+        System.out.println(mainPtr.data);
+    }
+
     public static void main(String[] args) {
         SinglyLinkedList sll =new SinglyLinkedList();
         sll.head = new ListNode(10);
@@ -133,9 +217,13 @@ public class SinglyLinkedList {
         sll.insertAtHead(sll.head, 77);
         sll.insertAtEnd(sll.head, 3);
         sll.insertAtPos(sll.head, 0, 4);
-        sll.deleteEnd(sll.head);
-        sll.deleteAtPosition(sll.head, 4);
+//        sll.deleteEnd(sll.head);
+//        sll.deleteAtPosition(sll.head, 4);
+        sll.findValue(sll.head, 4);
+        sll.reverseList(sll.head);
         sll.displaysll(sll.head);
+//        sll.forLoopLinkedList(sll.head);
+        sll.sllMiddleFinder(sll.head);
         sll.sllLength(sll.head);
 
     }
